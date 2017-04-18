@@ -30,7 +30,7 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('welcome');
+		return view('user.pages.home');
 	}
 	public function thongtin(){
 		return view('thongtin');

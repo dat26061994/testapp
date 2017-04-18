@@ -81,8 +81,8 @@
                         <li>
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span class="fa arrow"></span></a>
+                       <li>
+                            <a href="#"><i class="fa fa-cube fa-fw"></i> Category<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="{{ route('admin.cate.getList') }}">List Category</a>
@@ -97,10 +97,10 @@
                             <a href="#"><i class="fa fa-cube fa-fw"></i> Product<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="">List Product</a>
+                                    <a href="{{ route('admin.product.getList') }}">List Product</a>
                                 </li>
                                 <li>
-                                    <a href="">Add Product</a>
+                                    <a href="{{ route('admin.product.getAdd') }}">Add Product</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -149,6 +149,7 @@
     <script src="{{ url('public/admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') }}"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script src="{{ url('public/admin/js/myscript.js') }}"></script>
     <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({

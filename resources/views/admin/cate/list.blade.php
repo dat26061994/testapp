@@ -9,35 +9,35 @@
                             <small>List</small>
                         </h1>
                     </div>
+                     @if(Session::has('flash_message'))
+                            <div class="alert alert-{!! Session::get('flash_level') !!}">
+                                {!! Session::get('flash_message') !!}
+                            </div>
+                        @endif
                     <!-- /.col-lg-12 -->
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                             <tr align="center">
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Category Parent</th>
-                                <th>Status</th>
-                                <th>Delete</th>
-                                <th>Edit</th>
+                                <th style="text-align:center;">ID</th>
+                                <th style="text-align:center;">Name</th>
+                                <th style="text-align:center;">Orders</th>
+                                <th style="text-align:center;">Edit</th>
+                                <th style="text-align:center;">Delete</th>                                
                             </tr>
                         </thead>
                         <tbody>
+                        <?php $stt = 0;?>
+                        @foreach($data as $item)
+                        <?php $stt++ ?>
                             <tr class="odd gradeX" align="center">
-                                <td>1</td>
-                                <td>Tin Tức</td>
-                                <td>None</td>
-                                <td>Hiện</td>
-                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
-                                <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>
+                                <td>{{ $stt }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->orders }}</td>
+                                <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{{ URL::route('admin.cate.getEdit',$item->id) }}">Edit</a></td>
+                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a onclick="return deleteConfirm('Do you want delete ??')" href="{{ URL::route('admin.cate.getDelete',$item->id) }}"> Delete</a></td>
+                                
                             </tr>
-                            <tr class="even gradeC" align="center">
-                                <td>2</td>
-                                <td>Bóng Đá</td>
-                                <td>Thể Thao</td>
-                                <td>Ẩn</td>
-                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
-                                <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>
-                            </tr>
+                        @endforeach 
                         </tbody>
                     </table>
                 </div>

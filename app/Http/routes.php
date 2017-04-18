@@ -21,13 +21,24 @@ Route::controllers([
 ]);
 
 Route::group(['prefix'=>'admin'],function(){
+
 	Route::group(['prefix'=>'cate'],function(){
 		Route::get('list',['as'=>'admin.cate.getList','uses'=>'CateController@getList']);
 		Route::get('add',['as'=>'admin.cate.getAdd','uses'=>'CateController@getAdd']);
 		Route::post('add',['as'=>'admin.cate.postAdd','uses'=>'CateController@postAdd']);
-		Route::get('edit',['as'=>'admin.cate.getEdit','uses'=>'CateController@getEdit']);
-		Route::post('edit',['as'=>'admin.cate.postEdit','uses'=>'CateController@postEdit']);
-		Route::get('delete',['as'=>'admin.cate.getDelete','uses'=>'CateController@getDelete']);
-		Route::post('delete',['as'=>'admin.cate.postDelete','uses'=>'CateController@postDelete']);
+		Route::get('edit/{id}',['as'=>'admin.cate.getEdit','uses'=>'CateController@getEdit']);
+		Route::post('edit/{id}',['as'=>'admin.cate.postEdit','uses'=>'CateController@postEdit']);
+		Route::get('delete/{id}',['as'=>'admin.cate.getDelete','uses'=>'CateController@getDelete']);
+		Route::post('delete/{id}',['as'=>'admin.cate.postDelete','uses'=>'CateController@postDelete']);
+	});
+
+	Route::group(['prefix'=>'product'],function(){
+		Route::get('list',['as'=>'admin.product.getList','uses'=>'ProductController@getList']);
+		Route::get('add',['as'=>'admin.product.getAdd','uses'=>'ProductController@getAdd']);
+		Route::post('add',['as'=>'admin.product.postAdd','uses'=>'ProductController@postAdd']);
+		Route::get('edit/{id}',['as'=>'admin.product.getEdit','uses'=>'ProductController@getEdit']);
+		Route::post('edit/{id}',['as'=>'admin.product.postEdit','uses'=>'ProductController@postEdit']);
+		Route::get('delete/{id}',['as'=>'admin.product.getDelete','uses'=>'ProductController@getDelete']);
+		Route::post('delete/{id}',['as'=>'admin.product.postDelete','uses'=>'ProductController@postDelete']);
 	});
 });

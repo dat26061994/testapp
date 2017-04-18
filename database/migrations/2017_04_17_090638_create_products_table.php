@@ -16,12 +16,12 @@ class CreateProductsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name')->unique();
-			$table->string('alias');
+			/*$table->string('alias');*/
 			$table->integer('price');
-			$table->text('intro');
-			$table->longtext('content');
+			/*$table->text('intro');*/
+			/*$table->longtext('content');*/
 			$table->string('image');
-			$table->string('keywords');
+			/*$table->string('keywords');*/
 			$table->string('description');
 			$table->tinyInteger('orders');
 			$table->tinyInteger('status');

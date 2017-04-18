@@ -16,11 +16,11 @@ class CreateCatesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name')->unique();
-			$table->string('alias');
+			/*$table->string('alias');*/
 			$table->integer('orders');
-			$table->integer('parent_id');
-			$table->string('keywords');
-			$table->string('description');
+			
+			/*$table->string('keywords');*/
+			$table->text('description');
 			$table->timestamps();
 		});
 	}
