@@ -8,6 +8,10 @@ use App\Http\Requests\CateRequest;
 use App\cate;
 class CateController extends Controller {
 
+	public function dashboard(){
+		return view('admin.dashboard') ;
+	} 
+
 	public function getList(){
 		$data = cate::select('id','name','orders')->orderBy('id','DESC')->get();
 		return view('admin.cate.list',compact('data'));
@@ -51,6 +55,7 @@ class CateController extends Controller {
 	}
 
 	public function getDelete($id){
+		
 		$cate = cate::find($id);
 		$cate->delete($id);
 		return redirect()->route('admin.cate.getList')->with(['flash_level'=>'success','flash_message'=>'Success!! Complete Delete Category']);

@@ -25,18 +25,7 @@
                     @endif
                         <form action="" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <div class="form-group">
-                                <label>Category</label>
-                                <select class="form-control" name="sltCate" >
-                                
-                                    <option value="">Please Choose Category</option>
-                                @foreach($cate as $item)
-                                    <option value="{{  $item->id  }}" @if(($item->id)==($product['cate_id'])) selected = 'selected'  @endif >{{  $item->name  }}</option>
-
-                                @endforeach  
-                               
-                                </select>
-                            </div>
+                            
                             <div class="form-group">
                                 <label>Name</label>
                                 <input class="form-control" name="txtName" placeholder="Please Enter Username" value="{{ old('txtName',isset($product) ? $product['name'] :null) }}" />

@@ -22,15 +22,15 @@ class LoginRequest extends Request {
 	public function rules()
 	{
 		return [
-			'email' =>'required',
-			'password' =>'required'
+			'txtUser' =>'required',
+			'txtPass' =>'required'
 		];
 	}
 
 	public function messages(){
 		return [
-           'email.required' => 'Vui Lòng Nhập Email',
-		'password.required' => 'Vui Lòng Nhập PassWord'    
+           'txtUser.required' => 'Please enter username',
+			'txtPass.required' => 'Please enter password'    
 		];
 		
 	}

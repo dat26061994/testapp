@@ -28,7 +28,6 @@
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Date</th>
-                                <th>Category</th>
                                 <th>Status</th>
                                 <th>Delete</th>
                                 <th>Edit</th>
@@ -43,17 +42,8 @@
                                 <td><img src="{{ url('resources/upload/'.$item['image']) }}" alt="" style="height:80px;width:80px;"></td>
                                 <td>{!! $item["name"] !!}</td>
                                 <td>{!! number_format($item["price"]) !!}$</td>
-                                <td><?php
-                                        echo \Carbon\Carbon::createFromTimeStamp(strtotime($item["created_at"]))->diffForHumans()
-                                ?></td>
-                                <td>
-                                    <?php
-                                 $cate = DB::table('cates')->where('id',$item["cate_id"])->first();?>
-                                @if (!empty($cate->name))
-                                    {!! $cate->name !!}
-                                @endif
-                                    
-                                </td>
+                                <td>{{ $item["updated_at"] }}</td>
+                                
                                 <td>
                                    <?php
                                         if ($item["status"]==1) {

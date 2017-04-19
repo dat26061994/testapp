@@ -38,33 +38,24 @@ class AuthController extends Controller {
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
-	public function getRegister(){
-         return view('auth.register');
-	}
-	public function postRegister(RegisterRequest $request){
-
-		$thanhvien = new User;
-		$thanhvien->name=$request->name;
-		$thanhvien->email=$request->email;
-		$thanhvien->password= Hash::make($request->password);
-		$thanhvien->remember_token=$request->_token;
-		$thanhvien->save();
-	}
+	
 
 	public function getLogin(){
-          return view('auth.login');
+          return view('admin.login');
 	}
 
 	public function postLogin(LoginRequest $request){
-		$auth = array(
-              'email' => $request->email,
-              'password' => $request->password
+		$login = array(
+				'username'	=> $request->txtUser,
+				'password'	=>	$request->txtPass,
+				'level'		=>	1
+				
 			);
-          if ($this->auth->attempt($auth)) {
-          	return $this->user()->user;
-          }else{
-          	echo "Thất Bại";
-          }
+		if ($this->auth->attempt($login)) {
+			return redirect()->route('admin.dashboard');
+		}else{
+			return redirect()->back();
+		}
 	}
 
 

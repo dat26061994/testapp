@@ -5,32 +5,33 @@ use App\Http\Requests\ProductRequest;
 use App\Http\Controllers\Controller;
 use App\cate;
 use App\product;
+use Auth;
 use Illuminate\Http\Request;
 use File;
 use input;
 class ProductController extends Controller {
 
 	public function getList(){
-		$data = product::select('id','name','orders','status','price','created_at','image','cate_id')->orderBy('id','DESC')->get()->toArray();
+		$data = product::select('id','name','orders','status','price','created_at','image','updated_at')->orderBy('id','DESC')->get()->toArray();
 		return view('admin.product.list',compact('data'));
 	}
 
 		public function getAdd(){
-		$cate = cate::select('id','name')->get();	
-		return view('admin.product.add',compact('cate'));
+		
+		return view('admin.product.add');
 	}
 
 	public function postAdd(ProductRequest $request){
 		$file_name = $request->file('fImages')->getClientOriginalName();
 		$product = new product;
-		$product->cate_id = $request->sltCate;
+		
 		$product->name = $request->txtName;
 		$product->price = $request->txtPrice;
 		$product->image = $file_name;
 		$product->description = $request->txtDescription;
 		$product->orders = $request->txtOrders;
 		$product->status = $request->rdoStatus;
-		$product->user_id = 1;
+		$product->user_id = Auth::user()->id;
 		$request->file('fImages')->move('resources/upload/',$file_name);
 		$product->save();
 		return redirect()->route('admin.product.getList')->with(['flash_level'=>'success','flash_message'=>'Success!! Complete Add Product']);
@@ -44,23 +45,42 @@ class ProductController extends Controller {
 	}
 
 	public function getEdit($id){
-		$cate = cate::select('id','name')->get();
+		
 		$product = product::find($id)->toArray();
-		return view('admin.product.edit',compact('cate','product','id'));
+		return view('admin.product.edit',compact('product','id'));
 	}
 
 	public function postEdit($id,Request $request){
-		$product = product::find($id);
+		$this->validate($request,
+			[ 
+				'txtName'	=>	'required|max:100',
+				'txtPrice'	=>	'required|integer|max:10000000000',
+				'fImages'	=> 'mimes:jpeg,jpg,png,gif|max:10240'
+			],
+			[
+				
+				'txtName.required'	=>	'Product name not null',
+				'txtName.max'	=>	'Product Name max is 100 digits',
+				'txtPrice.required'	=>	'Price not null',
+				'txtPrice.integer'	=>	'Price must be number',
+				'txtPrice.max'	=> 'Price is so much',
+				'fImages.mimes'	=>	'This is not image(jpeg,gif,png or jpg)',
+				'fImages.max'	=>	'The image size is so much'
+			]
+
+
+
+			);
+
+		$product = product::find($id);	
 		
-		
-		$product->cate_id = $request->sltCate;
 		$product->name = $request->txtName;
 		$product->price = $request->txtPrice;
 		$product->image;
 		$product->description = $request->txtDescription;
 		$product->orders = $request->txtOrders;
 		$product->status = $request->rdoStatus;
-		$product->user_id = 1;
+		$product->user_id = Auth::user()->id;
 		$img_current = 'resources/upload/'.$request->img_current;
 		
 		if (!empty($request->file('fImages'))) {
@@ -70,8 +90,6 @@ class ProductController extends Controller {
 			if (File::exists($img_current)) {
 				File::delete($img_current);
 			}
-		}else{
-			echo "khong co file";
 		}
 		$product->save();
 		return redirect()->route('admin.product.getList')->with(['flash_level'=>'success','flash_message'=>'Success!! Edit a Product']);
